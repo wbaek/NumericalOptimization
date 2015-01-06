@@ -19,6 +19,7 @@ def root_finding(function, a, b, epsilon=1e-5, verbose=False):
     a=1.51953, b=1.52344, x=1.52148, f(x)=0.00062
     1.521484375
     '''
+    params = [a, b, (a+b)/2.0]
     scores = [0, 0, 1]
     while (abs(scores[-1]) > epsilon) and (b-a > epsilon):
         params = [a, b, (a+b)/2.0]
