@@ -5,7 +5,7 @@ def _verbose(params, scores):
 def root_finding(function, a, b, epsilon=1e-5, verbose=False):
     ''' root-finding bisectioni method
     >>> root_finding( lambda x: x**3-x-2, 1, 2 )
-    1.5213813781738281
+    1.5213851928710938
 
     >>> root_finding( lambda x: x**3-x-2, 1, 2, 1e-3, verbose=True )
     a=1.00000, b=2.00000, x=1.50000, f(x)=-0.12500
@@ -19,16 +19,14 @@ def root_finding(function, a, b, epsilon=1e-5, verbose=False):
     a=1.51953, b=1.52344, x=1.52148, f(x)=0.00062
     1.521484375
     '''
-    params = [a, b, (a+b)/2.0]
-    scores = [function(param) for param in params]
-    if verbose: _verbose(params, scores)
+    scores = [0, 0, 1]
     while (abs(scores[-1]) > epsilon) and (b-a > epsilon):
+        params = [a, b, (a+b)/2.0]
+        scores = [function(param) for param in params]
         if scores[-1] * scores[0] < 0:
             b = params[-1]
         else:
             a = params[-1]
-        params = [a, b, (a+b)/2.0]
-        scores = [function(param) for param in params]
         if verbose: _verbose(params, scores)
     return params[-1]
 
