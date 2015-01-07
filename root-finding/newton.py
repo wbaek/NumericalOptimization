@@ -5,7 +5,7 @@ def _verbose(param, score):
 def root_finding(function, derivate, x, epsilon=1e-5, verbose=False):
     ''' root-finding bisectioni method
     >>> root_finding( lambda x: x**3-x-2, lambda x: 3*(x**2)-1, 1.0 )
-    1.5213797068045676
+    1.521379709733148
 
     >>> root_finding( lambda x: x**3-x-2, lambda x: 3*(x**2)-1, 1.0, epsilon=1e-5, verbose=True )
     x=1.00000, f(x)=-2.00000
@@ -14,7 +14,7 @@ def root_finding(function, derivate, x, epsilon=1e-5, verbose=False):
     x=1.53039, f(x)=0.05394
     x=1.52144, f(x)=0.00037
     x=1.52138, f(x)=0.00000
-    1.5213797068045676
+    1.521379709733148
     '''
 
     score, delta = 1, 1
@@ -23,7 +23,7 @@ def root_finding(function, derivate, x, epsilon=1e-5, verbose=False):
         delta = score / derivate(x)
         if verbose: _verbose(x, score)
         x = x - delta
-    return x
+    return x + delta
 
 
 if __name__ == '__main__':
