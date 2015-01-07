@@ -3,11 +3,11 @@ def _verbose(params, scores):
     print 'a=%.5f, b=%.5f, x=%.5f, f(x)=%.5f'%(params[0], params[1], params[2], scores[-1])
 
 def root_finding(function, a, b, epsilon=1e-5, verbose=False):
-    ''' root-finding bisectioni method
-    >>> root_finding( lambda x: x**3-x-2, 1, 2 )
+    ''' root-finding bisection method
+    >>> root_finding( lambda x: x**3-x-2, 1.0, 2.0 )
     1.5213851928710938
 
-    >>> root_finding( lambda x: x**3-x-2, 1, 2, 1e-3, verbose=True )
+    >>> root_finding( lambda x: x**3-x-2, 1.0, 2.0, 1e-3, verbose=True )
     a=1.00000, b=2.00000, x=1.50000, f(x)=-0.12500
     a=1.50000, b=2.00000, x=1.75000, f(x)=1.60938
     a=1.50000, b=1.75000, x=1.62500, f(x)=0.66602
