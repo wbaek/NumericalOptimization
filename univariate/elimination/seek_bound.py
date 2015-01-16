@@ -4,7 +4,7 @@ def _verbose(params, scores):
 
 import random
 def seek_bound(function, x=random.random(), d=random.random(), verbose=False):
-    ''' fibonacci elimination
+    ''' seek initial bound
     >>> seek_bound( lambda x: abs(x-0.3), 0.35, 0.2, verbose=True )
     params=0.15,0.35,0.55, scores=0.15,0.05,0.25
     (0.14999999999999997, 0.55)
