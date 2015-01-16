@@ -24,7 +24,7 @@ def seek_bound(function, x=random.random(), d=random.random(), verbose=False):
     params=2.00,1.70,1.10, scores=1.70,1.40,0.80
     params=1.70,1.10,-0.10, scores=1.40,0.80,0.40
     params=1.10,-0.10,-2.50, scores=0.80,0.40,2.80
-    (-2.5, 1.1)
+    (-2.5, 1.2)
     '''
     params = [x-d, x, x+d]
     scores = [function(p) for p in params]
