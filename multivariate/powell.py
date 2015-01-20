@@ -11,7 +11,7 @@ from univariate.elimination import seek_bound
 from univariate.elimination import golden_section
 
 def minimize(function, initial, epsilon=1e-6, repeat=int(1e4), verbose=False):
-    ''' melder mead method
+    ''' powell's method
     >>> ['%.2f'%v for v in minimize( lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + 3.0, (0.0,0.0) )]
     ['0.30', '1.30']
 
