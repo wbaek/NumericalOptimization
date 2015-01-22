@@ -51,6 +51,12 @@ def minimize(function, derivate, initial, epsilon=1e-6, repeat=int(1e4), verbose
     ['3.00', '3.00']
 
     >>> ['%.2f'%v for v in minimize( \
+            lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + (x[2]+0.7)**2, \
+            lambda x: (2*x[0]-0.6, 2*x[1]-2.6, 2*x[2]+1.4), \
+            (0.0, 0.0, 0.0))]
+    ['0.30', '1.30', '-0.70']
+
+    >>> ['%.2f'%v for v in minimize( \
             lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + 3.0, \
             lambda x: (2*x[0] - 0.6, 2*x[1] -2.6), \
             (0.0, 0.0), repeat=10, verbose=True)]
