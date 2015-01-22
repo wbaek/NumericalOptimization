@@ -53,7 +53,7 @@ def minimize(function, derivate, initial, epsilon=1e-6, repeat=int(1e4), verbose
     >>> ['%.2f'%v for v in minimize( \
             lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + 3.0, \
             lambda x: (2*x[0] - 0.6, 2*x[1] -2.6), \
-            (0.0, 0.0), verbose=True)]
+            (0.0, 0.0), repeat=10, verbose=True)]
     iter=000, params=(0.00,0.00), direction=(0.22,0.97), step_length=0.30000, scores=4.78
     iter=001, params=(0.07,0.29), direction=(0.22,0.97), step_length=0.30000, scores=4.07
     iter=002, params=(0.13,0.58), direction=(0.22,0.97), step_length=0.30000, scores=3.54
@@ -64,11 +64,6 @@ def minimize(function, derivate, initial, epsilon=1e-6, repeat=int(1e4), verbose
     iter=007, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00142, scores=3.00
     iter=008, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00070, scores=3.00
     iter=009, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00017, scores=3.00
-    iter=010, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00008, scores=3.00
-    iter=011, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00003, scores=3.00
-    iter=012, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
-    iter=013, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
-    iter=014, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
     ['0.30', '1.30']
     '''
 
