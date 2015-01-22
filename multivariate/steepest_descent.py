@@ -15,7 +15,7 @@ def check_wolfe_condition(score_pt, score_alpha_pt, gradient_pt, gradient_alpha_
         return False
 
 def find_step_length(function, derivate, pt, direction,
-        tau=0.7, repeat=int(1e4), initial_length=3.0):
+        tau=0.7, repeat=int(1e4), initial_length=1.0):
     score_at_pt = function(pt)
     gradient_at_pt = derivate(pt)
 
@@ -54,20 +54,21 @@ def minimize(function, derivate, initial, epsilon=1e-6, repeat=int(1e4), verbose
             lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + 3.0, \
             lambda x: (2*x[0] - 0.6, 2*x[1] -2.6), \
             (0.0, 0.0), verbose=True)]
-    iter=000, params=(0.00,0.00), direction=(0.22,0.97), step_length=0.90000, scores=4.78
-    iter=001, params=(0.20,0.88), direction=(0.22,0.97), step_length=0.30870, scores=3.19
-    iter=002, params=(0.27,1.18), direction=(0.22,0.97), step_length=0.07412, scores=3.02
-    iter=003, params=(0.29,1.25), direction=(0.22,0.97), step_length=0.03632, scores=3.00
-    iter=004, params=(0.30,1.29), direction=(0.22,0.97), step_length=0.00872, scores=3.00
-    iter=005, params=(0.30,1.29), direction=(0.22,0.97), step_length=0.00427, scores=3.00
-    iter=006, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00147, scores=3.00
-    iter=007, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00035, scores=3.00
-    iter=008, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00017, scores=3.00
-    iter=009, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00003, scores=3.00
-    iter=010, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00001, scores=3.00
-    iter=011, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
+    iter=000, params=(0.00,0.00), direction=(0.22,0.97), step_length=0.30000, scores=4.78
+    iter=001, params=(0.07,0.29), direction=(0.22,0.97), step_length=0.30000, scores=4.07
+    iter=002, params=(0.13,0.58), direction=(0.22,0.97), step_length=0.30000, scores=3.54
+    iter=003, params=(0.20,0.88), direction=(0.22,0.97), step_length=0.30000, scores=3.19
+    iter=004, params=(0.27,1.17), direction=(0.22,0.97), step_length=0.10290, scores=3.02
+    iter=005, params=(0.29,1.27), direction=(0.22,0.97), step_length=0.02471, scores=3.00
+    iter=006, params=(0.30,1.29), direction=(0.22,0.97), step_length=0.00415, scores=3.00
+    iter=007, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00142, scores=3.00
+    iter=008, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00070, scores=3.00
+    iter=009, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00017, scores=3.00
+    iter=010, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00008, scores=3.00
+    iter=011, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00003, scores=3.00
     iter=012, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
     iter=013, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
+    iter=014, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00000, scores=3.00
     ['0.30', '1.30']
     '''
 
