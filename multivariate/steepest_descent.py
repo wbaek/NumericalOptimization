@@ -5,12 +5,6 @@ def _verbose(i, param, direction, step_length, score):
     scores_str = '%.2f'%score
     print 'iter=%03d, params=%s, direction=%s, step_length=%.5f, scores=%s'%(i, params_str, direction_str, step_length, scores_str)
 
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
-from univariate.elimination import seek_bound
-from univariate.elimination import golden_section
-
 import numpy
 def check_wolfe_condition(score_pt, score_alpha_pt, gradient_pt, gradient_alpha_pt, alpha, direction,
         constant1=0.6, constant2=0.8):
