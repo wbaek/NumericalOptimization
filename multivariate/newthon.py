@@ -42,47 +42,47 @@ def find_step_length(function, derivate, pt, direction,
 
     return alpha
 
-def minimize(function, derivate, initial, epsilon=1e-6, repeat=int(1e4), verbose=False):
+def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int(1e4),
+        update_step_length=False, verbose=False):
     ''' steepest descent
     >>> ['%.2f'%v for v in minimize( \
             lambda x: x[0]**2 - 2*x[0]*x[1] + 2*(x[1]**2) - 6*x[1] + 9, \
             lambda x: (2*x[0] - 2*x[1], 4*x[1] - 2*x[0] - 6), \
+            lambda x: ((2, -2), (-2, 4)), \
             (0.0,5.5) )]
     ['3.00', '3.00']
 
     >>> ['%.2f'%v for v in minimize( \
             lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + (x[2]+0.7)**2, \
             lambda x: (2*x[0]-0.6, 2*x[1]-2.6, 2*x[2]+1.4), \
-            (0.0, 0.0, 0.0))]
+            lambda x: ((2, 0, 0), (0, 2, 0), (0, 0, 2)), \
+            (0.0, 0.0, 0.0) )]
     ['0.30', '1.30', '-0.70']
 
     >>> ['%.2f'%v for v in minimize( \
             lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + 3.0, \
             lambda x: (2*x[0] - 0.6, 2*x[1] -2.6), \
+            lambda x: ((2, 0), (0, 2)), \
             (0.0, 0.0), repeat=10, verbose=True)]
-    iter=000, params=(0.00,0.00), direction=(0.22,0.97), step_length=0.30000, scores=4.78
-    iter=001, params=(0.07,0.29), direction=(0.22,0.97), step_length=0.30000, scores=4.07
-    iter=002, params=(0.13,0.58), direction=(0.22,0.97), step_length=0.30000, scores=3.54
-    iter=003, params=(0.20,0.88), direction=(0.22,0.97), step_length=0.30000, scores=3.19
-    iter=004, params=(0.27,1.17), direction=(0.22,0.97), step_length=0.10290, scores=3.02
-    iter=005, params=(0.29,1.27), direction=(0.22,0.97), step_length=0.02471, scores=3.00
-    iter=006, params=(0.30,1.29), direction=(0.22,0.97), step_length=0.00415, scores=3.00
-    iter=007, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00142, scores=3.00
-    iter=008, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00070, scores=3.00
-    iter=009, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00017, scores=3.00
+    iter=000, params=(0.00,0.00), direction=(0.30,1.30), step_length=1.00000, scores=4.78
+    iter=001, params=(0.30,1.30), direction=(-0.00,-0.00), step_length=1.00000, scores=3.00
     ['0.30', '1.30']
     '''
 
     pt = numpy.array( initial )
+
     for i in range(repeat):
-        descending_direction = - numpy.array(derivate( pt ))
-        length_of_gradient = numpy.linalg.norm(descending_direction, 2)
-        descending_direction /= length_of_gradient
+        gradient = numpy.array(derivate( pt ))
+        hessian = numpy.array(derivate_2nd( pt ))
+        hessian_inverse = numpy.linalg.inv( hessian )
+        direction = - numpy.dot(gradient, hessian_inverse)
 
-        step_length = find_step_length(function, derivate, pt, descending_direction)
-        if verbose: _verbose(i, pt, descending_direction, step_length, function(pt))
+        step_length = find_step_length(function, derivate, pt, direction) if update_step_length else 1.0
+        if verbose: _verbose(i, pt, direction, step_length, function(pt))
 
-        pt = pt + descending_direction * step_length
+        pt = pt + direction * step_length
+
+        length_of_gradient = numpy.linalg.norm( gradient, 2 )
         if step_length < epsilon or length_of_gradient < epsilon:
             break
 
