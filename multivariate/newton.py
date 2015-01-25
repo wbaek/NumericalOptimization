@@ -9,44 +9,7 @@ def _verbose(i, param, direction, hessian, step_length, score):
         i, params_str, direction_str, hessian_str, step_length, scores_str)
 
 import numpy
-def check_wolfe_condition(score_pt, score_alpha_pt, gradient_pt, gradient_alpha_pt, alpha, direction,
-        constant1=0.6, constant2=0.8):
-    if score_alpha_pt - score_pt <= constant1 * alpha * numpy.dot(gradient_pt, direction) \
-    and numpy.dot(gradient_alpha_pt, direction) >= constant2 * numpy.dot(gradient_pt, direction):
-        return True
-    else:
-        return False
-
-def find_step_length(function, derivate, pt, direction,
-        tau=0.7, repeat=int(1e4), initial_length=1.0):
-    score_at_pt = function(pt)
-    gradient_at_pt = derivate(pt)
-
-    alpha = 0.0
-    start_pt = pt
-    last_pt = pt + direction * initial_length
-    for i in range(100):
-        length = numpy.linalg.norm( last_pt - start_pt, 2 )
-        pt1 = start_pt + direction * ( (1.0 - tau) * length )
-        pt2 = start_pt + direction * ( (tau) * length )
-        score_pt1 = function( pt1 )
-        score_pt2 = function( pt2 )
-
-        # wolfe condition
-        alpha = (1.0 - tau) * length
-        if check_wolfe_condition(score_at_pt, score_pt1, gradient_at_pt, derivate(pt1), alpha, direction):
-            break
-        alpha = (tau) * length
-        if check_wolfe_condition(score_at_pt, score_pt2, gradient_at_pt, derivate(pt2), alpha, direction):
-            break
-
-        if score_pt1 >= score_pt2: start_pt = pt1
-        else: last_pt = pt2
-
-    return alpha
-
-def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int(1e4),
-        update_step_length=False, verbose=False):
+def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int(1e4), verbose=False):
     ''' steepest descent
     >>> ['%.2f'%v for v in minimize( \
             lambda x: x[0]**2 - 2*x[0]*x[1] + 2*(x[1]**2) - 6*x[1] + 9, \
@@ -73,6 +36,7 @@ def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int
     '''
 
     pt = numpy.array( initial )
+    step_length = 1.0
 
     for i in range(repeat):
         gradient = numpy.array(derivate( pt ))
@@ -80,11 +44,9 @@ def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int
         inverted_hessian = numpy.linalg.inv( hessian )
         direction = - numpy.dot( inverted_hessian, gradient)
 
-        step_length = find_step_length(function, derivate, pt, direction) if update_step_length else 1.0
         if verbose: _verbose(i, pt, direction, inverted_hessian, step_length, function(pt))
 
         pt = pt + direction * step_length
-
         length_of_gradient = numpy.linalg.norm( gradient, 2 )
         if step_length < epsilon or length_of_gradient < epsilon:
             break
