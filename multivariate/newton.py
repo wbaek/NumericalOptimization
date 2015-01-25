@@ -46,10 +46,11 @@ def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int
 
         if verbose: _verbose(i, pt, direction, inverted_hessian, step_length, function(pt))
 
-        pt = pt + direction * step_length
         length_of_gradient = numpy.linalg.norm( gradient, 2 )
         if step_length < epsilon or length_of_gradient < epsilon:
             break
+
+        pt = pt + direction * step_length
 
     return tuple(pt)
 

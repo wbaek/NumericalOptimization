@@ -82,13 +82,14 @@ def minimize(function, derivate, initial, update_method=SR1, epsilon=1e-6, repea
         direction = - numpy.dot(inverted_approximated_hessian, gradient)
 
         if verbose: _verbose(i, pt, direction, inverted_approximated_hessian, step_length, function(pt))
-        pt = pt + direction * step_length
 
-        inverted_approximated_hessian = update_method(
-                    derivate, pt, direction, step_length, inverted_approximated_hessian, epsilon)
         length_of_gradient = numpy.linalg.norm( gradient, 2 )
         if step_length < epsilon or length_of_gradient < epsilon:
             break
+
+        pt = pt + direction * step_length
+        inverted_approximated_hessian = update_method(
+                    derivate, pt, direction, step_length, inverted_approximated_hessian, epsilon)
 
     return tuple(pt)
 
