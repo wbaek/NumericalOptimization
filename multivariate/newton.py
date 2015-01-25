@@ -1,9 +1,12 @@
 #-*- coding: utf-8 -*-
-def _verbose(i, param, direction, step_length, score):
+def _verbose(i, param, direction, hessian, step_length, score):
     params_str = '(%s)'%(','.join(['%.2f'%p for p in param]))
     direction_str = '(%s)'%(','.join(['%.2f'%d for d in direction]))
+    hessian_str = '(%s)'%(','.join(
+        ['[' + ','.join(['%.2f'%h for h in hessian_row]) + ']' for hessian_row in hessian]) )
     scores_str = '%.2f'%score
-    print 'iter=%03d, params=%s, direction=%s, step_length=%.5f, scores=%s'%(i, params_str, direction_str, step_length, scores_str)
+    print 'iter=%03d, params=%s, direction=%s, hessian_inv=%s, step_length=%.5f, scores=%s'%(
+        i, params_str, direction_str, hessian_str, step_length, scores_str)
 
 import numpy
 def check_wolfe_condition(score_pt, score_alpha_pt, gradient_pt, gradient_alpha_pt, alpha, direction,
@@ -64,8 +67,8 @@ def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int
             lambda x: (2*x[0] - 0.6, 2*x[1] -2.6), \
             lambda x: ((2, 0), (0, 2)), \
             (0.0, 0.0), repeat=10, verbose=True)]
-    iter=000, params=(0.00,0.00), direction=(0.30,1.30), step_length=1.00000, scores=4.78
-    iter=001, params=(0.30,1.30), direction=(-0.00,-0.00), step_length=1.00000, scores=3.00
+    iter=000, params=(0.00,0.00), direction=(0.30,1.30), hessian_inv=([0.50,0.00],[0.00,0.50]), step_length=1.00000, scores=4.78
+    iter=001, params=(0.30,1.30), direction=(-0.00,-0.00), hessian_inv=([0.50,0.00],[0.00,0.50]), step_length=1.00000, scores=3.00
     ['0.30', '1.30']
     '''
 
@@ -74,11 +77,11 @@ def minimize(function, derivate, derivate_2nd, initial, epsilon=1e-6, repeat=int
     for i in range(repeat):
         gradient = numpy.array(derivate( pt ))
         hessian = numpy.array(derivate_2nd( pt ))
-        hessian_inverse = numpy.linalg.inv( hessian )
-        direction = - numpy.dot(gradient, hessian_inverse)
+        inverted_hessian = numpy.linalg.inv( hessian )
+        direction = - numpy.dot( inverted_hessian, gradient)
 
         step_length = find_step_length(function, derivate, pt, direction) if update_step_length else 1.0
-        if verbose: _verbose(i, pt, direction, step_length, function(pt))
+        if verbose: _verbose(i, pt, direction, inverted_hessian, step_length, function(pt))
 
         pt = pt + direction * step_length
 

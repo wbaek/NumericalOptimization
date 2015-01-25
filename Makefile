@@ -6,4 +6,4 @@ MODULES=$(call rwildcard,,*.py)
 test: check
 
 check:
-	python -m doctest -v $(MODULES)
+	python -m doctest $(MODULES)
