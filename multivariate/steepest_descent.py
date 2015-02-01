@@ -73,16 +73,16 @@ def minimize(function, derivate, initial, epsilon=1e-6, repeat=int(1e4), verbose
             lambda x: (x[0]-0.3)**2 + (x[1]-1.3)**2 + 3.0, \
             lambda x: (2*x[0] - 0.6, 2*x[1] -2.6), \
             (0.0, 0.0), repeat=10, verbose=True)]
-    iter=000, params=(0.00,0.00), direction=(0.22,0.97), step_length=0.80000, scores=4.78
-    iter=001, params=(0.18,0.78), direction=(0.22,0.97), step_length=0.20000, scores=3.29
-    iter=002, params=(0.22,0.97), direction=(0.22,0.97), step_length=0.20000, scores=3.11
-    iter=003, params=(0.27,1.17), direction=(0.22,0.97), step_length=0.06554, scores=3.02
-    iter=004, params=(0.28,1.23), direction=(0.22,0.97), step_length=0.03355, scores=3.00
-    iter=005, params=(0.29,1.27), direction=(0.22,0.97), step_length=0.01718, scores=3.00
-    iter=006, params=(0.30,1.28), direction=(0.22,0.97), step_length=0.00880, scores=3.00
-    iter=007, params=(0.30,1.29), direction=(0.22,0.97), step_length=0.00450, scores=3.00
-    iter=008, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00231, scores=3.00
-    iter=009, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00118, scores=3.00
+    iter=000, params=(0.00,0.00), direction=(0.22,0.97), step_length=0.20000, scores=4.78
+    iter=001, params=(0.04,0.19), direction=(0.22,0.97), step_length=0.20000, scores=4.29
+    iter=002, params=(0.09,0.39), direction=(0.22,0.97), step_length=0.20000, scores=3.87
+    iter=003, params=(0.13,0.58), direction=(0.22,0.97), step_length=0.20000, scores=3.54
+    iter=004, params=(0.18,0.78), direction=(0.22,0.97), step_length=0.20000, scores=3.29
+    iter=005, params=(0.22,0.97), direction=(0.22,0.97), step_length=0.20000, scores=3.11
+    iter=006, params=(0.27,1.17), direction=(0.22,0.97), step_length=0.10240, scores=3.02
+    iter=007, params=(0.29,1.27), direction=(0.22,0.97), step_length=0.02147, scores=3.00
+    iter=008, params=(0.30,1.29), direction=(0.22,0.97), step_length=0.00704, scores=3.00
+    iter=009, params=(0.30,1.30), direction=(0.22,0.97), step_length=0.00231, scores=3.00
     ['0.30', '1.30']
     '''
 
