@@ -32,10 +32,10 @@ def minimize(jacobian, input_list, output_list):
     '0.22'
 
     function(t, x, y) = 1.0/2.0 * (t[0]*x[0]+t[1]*x[1]+t[2] - y)**2
-    >>> ['%.2f'%v for v in minimize( \
+    >>> ['%.2f'%abs(v) for v in minimize( \
             lambda x: (x[0], x[1], 1.0), \
             [[0.0, 4.0], [1.0, 2.0], [2.0, 1.0], [3.0, 2.0]], [1.0, 1.5, 2.0, 2.5])]
-    ['0.50', '-0.00', '1.00']
+    ['0.50', '0.00', '1.00']
     '''
 
     J = numpy.mat([jacobian(x) for x in input_list])
